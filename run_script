@@ -61,11 +61,9 @@ BASE_MESA_DIR=$MESA_DIR/star/__________
 TASK_NAME=task_$SLURM_ARRAY_TASK_ID
 TASK_DIR=$WORK_DIR/tasks/$TASK_NAME
 
-# Set up the caches directory
+cp -a $BASE_MESA_DIR/. $TASK_DIR
 
-
-
-cp -r $BASE_MESA_DIR $TASK_DIR
+bash $WORK_DIR/helper_scripts/caches_script $WORK_DIR $TASK_DIR
 
 cd $TASK_DIR
 
