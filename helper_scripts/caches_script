@@ -1,0 +1,21 @@
+#!/bin/bash
+# Setup for cache folders
+
+# Working directory has to be given
+WORK_DIR=$1
+TASK_DIR=$2
+
+STARJOB=$WORK_DIR/non_default_files
+
+EOS_CACHE=$WORK_DIR/caches/eosDT_cache
+ION_CACHE=$WORK_DIR/caches/ionization_cache
+KAP_CACHE=$WORK_DIR/caches/kap_cache
+RAT_CACHE=$WORK_DIR/caches/rates_cache
+
+cp $STARJOB/star_job.defaults $TASK_DIR/star_job.defaults
+
+sed -i -e "s/eosDT_cache_dir = ''/eosDT_cache_dir = '${EOS_CACHE}'/g"
+sed -i -e "s/ionization_cache_dir = ''/ionization_cache_dir = '${ION_CACHE}'/g"
+sed -i -e "s/kap_cache_dir = ''/kap_cache_dir = '${KAP_CACHE}'/g"
+sed -i -e "s/rates_cache_dir = ''/rates_cache_dir = '${RAT_CACHE}'/g"
+
