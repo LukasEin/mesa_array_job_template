@@ -52,6 +52,8 @@ module load python/3.10
 # !!!Always put the absolute path here to be completely certain everything works!!!
 WORK_DIR=__________/mesa_array_job_template/
 # BASE template directory on which to build the MESA run
+# If you have a personal template you can also give the absolute path 
+# there as well.
 BASE_MESA_DIR=$MESA_DIR/star/__________
 
 # Pre-setup of the run
@@ -70,8 +72,6 @@ cd $TASK_DIR
 
 # Any additional work needed before running MESA goes here
 # -----------------------------------------------------------------------------
-# For example the below code changes the initial mass in a given inlist file.
-python $WORK_DIR/helper_scripts/change_mass.py $TASK_DIR/inlist_common $SLURM_ARRAY_TASK_COUNT $SLURM_ARRAY_TASK_ID
 
 # This runs MESA in 
 # -----------------------------------------------------------------------------
