@@ -46,7 +46,6 @@ module load python/3.10
 # use variable $SLURM_ARRAY_TASK_ID to address individual behaviour
 # in different iteration of the script execution
 #----------------------------------------------------------------
-
 # FILL IN THE BLANKS __________ !!!
 
 # Path to this working directory. All array-tasks will be put into the ./tasks/ directory
@@ -55,18 +54,26 @@ WORK_DIR=__________/mesa_array_job_template/
 # BASE template directory on which to build the MESA run
 BASE_MESA_DIR=$MESA_DIR/star/__________
 
-
-
+# Pre-setup of the run
+#----------------------------------------------------------------
 # Setup the directory specific for the array-task
 TASK_NAME=task_$SLURM_ARRAY_TASK_ID
 TASK_DIR=$WORK_DIR/tasks/$TASK_NAME
 
+# Create the specific task directory in ./tasks/ as a copy of the chosen MESA template
 cp -a $BASE_MESA_DIR/. $TASK_DIR
 
-bash $WORK_DIR/helper_scripts/caches_script $WORK_DIR $TASK_DIR
+# Add the star_job.defaults file to the specific task foler as well as the caches folder structure
+bash $WORK_DIR/helper_scripts/caches.sh $WORK_DIR $TASK_DIR
 
 cd $TASK_DIR
 
-python $WD_DIR/change_mass.py $TASK_DIR $SLURM_ARRAY_TASK_COUNT $SLURM_ARRAY_TASK_ID
+# Any additional work needed before running MESA goes here
+# -----------------------------------------------------------------------------
+# For example the below code changes the initial mass in the inlist_common file
+# from the make_co_wd test suite.
+# python $WORK_DIR/helper_scripts/change_mass.py $TASK_DIR $SLURM_ARRAY_TASK_COUNT $SLURM_ARRAY_TASK_ID
 
+# This runs MESA in 
+# -----------------------------------------------------------------------------
 srun --cpu_bind=verbose ./clean && ./mk && ./rn > screenlog.log
