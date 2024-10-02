@@ -2,15 +2,15 @@ import argparse
 import numpy as np
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Change mass in inlist_common file depending on array id. Assumes that array job ids start with 0 and go in steps of 1')
+    parser = argparse.ArgumentParser(description='Change mass in a MESA inlist file depending on array id. Assumes that array job ids start with 0 and goes in steps of 1')
 
-    parser.add_argument('mesa_path', type=str)
+    parser.add_argument('inlist_path', type=str)
     parser.add_argument('range', metavar='SLURM_ARRAY_TASK_COUNT', type=int)
     parser.add_argument('index', metavar='SLURM_ARRAY_TASK_ID', type=int)
 
     args = parser.parse_args()
 
-    mesa_path, range, index = args.mesa_path, args.range, args.index
+    inlist_path, range, index = args.inlist_path, args.range, args.index
 
     min_mass = 1.5
     max_mass = 6.0
@@ -21,8 +21,6 @@ if __name__ == '__main__':
     mass_arr = np.logspace(log_min_mass, log_max_mass, range)
 
     mass = mass_arr[index]
-
-    inlist_path = f'{mesa_path}/inlist_common'
 
     with open(inlist_path) as f:
         content = f.read()

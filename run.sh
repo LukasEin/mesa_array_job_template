@@ -70,9 +70,8 @@ cd $TASK_DIR
 
 # Any additional work needed before running MESA goes here
 # -----------------------------------------------------------------------------
-# For example the below code changes the initial mass in the inlist_common file
-# from the make_co_wd test suite.
-# python $WORK_DIR/helper_scripts/change_mass.py $TASK_DIR $SLURM_ARRAY_TASK_COUNT $SLURM_ARRAY_TASK_ID
+# For example the below code changes the initial mass in a given inlist file.
+python $WORK_DIR/helper_scripts/change_mass.py $TASK_DIR/inlist_common $SLURM_ARRAY_TASK_COUNT $SLURM_ARRAY_TASK_ID
 
 # This runs MESA in 
 # -----------------------------------------------------------------------------
